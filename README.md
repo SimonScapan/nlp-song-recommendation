@@ -1,4 +1,4 @@
-# Project MURCAS - MUsic ReCommendation Software
+# Project MURAT - MUsic Recommendation AutomaT
 
 The project was created in connection with the "Data Science Entwicklungen" Module in the Natural Language Processing (NLP) Lecture in the Data Science course at the Baden-Württemberg Cooperative State University (DHBW) Mannheim. An extended documentation is stored as a scientific elaboration as PDF.
 
