@@ -1,37 +1,36 @@
-## Welcome to GitHub Pages
+# Project MURCAS - MUsic ReCommendation Software
 
-You can use the [editor on GitHub](https://github.com/SimonScapan/nlp-song-recommendation/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+The project was created in connection with the "Data Science Entwicklungen" Module in the Natural Language Processing (NLP) Lecture in the Data Science course at the Baden-Württemberg Cooperative State University (DHBW) Mannheim. An extended documentation is stored as a scientific elaboration as PDF.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Getting Started
 
-### Markdown
+### Step 1 - Install all dependencys
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+TBD
 
-```markdown
-Syntax highlighted code block
+### Step 2 - Run Software
 
-# Header 1
-## Header 2
-### Header 3
+TBD
 
-- Bulleted
-- List
+### Step 3 - Have fun
 
-1. Numbered
-2. List
+TBD
 
-**Bold** and _Italic_ and `Code` text
+## Authors
 
-[Link](url) and ![Image](src)
-```
+* **Jan Brebeck** - [Brebeck-Jan](https://github.com/Brebeck-Jan)
+* **Andreas Bernrieder** - [Phantomias3782](https://github.com/Phantomias3782)
+* **Simon Scapan** - [SimonScapan](https://github.com/SimonScapan)
+* **Thorsten Hilbradt** - [Thorsten-H](https://github.com/Thorsten-H)
+* **Niklas Wichter** - [NWichter](https://github.com/NWichter)
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+## License
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SimonScapan/nlp-song-recommendation/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-### Support or Contact
+## Acknowledgments
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Special Thanks to:
+
+TBD
