@@ -260,8 +260,8 @@ def calc_emotions_database(dataframe):
 # b = calc_emotions_database(a)
 # print(b.head())
 
-print(calc_emotions_per_song(text))
+#print(calc_emotions_per_song(text)) # compaare to package
 print(calc_emotions_per_song_cust(text))
 
-append_to_pickle("happy", ["happy", "happiness"]) # happinies obviusoly not in dataset --> append with this funciton
+# append_to_pickle("happy", ["happy", "happiness"]) # happinies obviusoly not in dataset --> append with this funciton
 print(calc_emotions_per_song_cust(text))

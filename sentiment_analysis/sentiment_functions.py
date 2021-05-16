@@ -183,7 +183,6 @@ def word_corpus_cleaning(song_text):
 
     # lammetize song text
     song_text = [lemmatization(word) for word in song_text]
-    print(song_text)
 
     # print(song_text)
     return song_text
