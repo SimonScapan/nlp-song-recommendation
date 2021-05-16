@@ -3,91 +3,87 @@ import text2emotion as te
 # text = """I was asked to sign a third party contract a week out from stay. If it wasn't an 8 person group that took a lot of wrangling I would have cancelled the booking straight away. Bathrooms - there are no stand alone bathrooms. Please consider this - you have to clear out the main bedroom to use that bathroom. Other option is you walk through a different bedroom to get to its en-suite. Signs all over the apartment - there are signs everywhere - some helpful - some telling you rules. Perhaps some people like this but It negatively affected our enjoyment of the accommodation. Stairs - lots of them - some had slightly bending wood which caused a minor injury."""
 
 text = """
-It might seem crazy what I'm about to say
-Sunshine she's here, you can take a break
-I'm a hot air balloon that could go to space
-With the air, like I don't care baby by the way
+The silicon chip inside her head
+Gets switched to overload.
+And nobody's gonna go to school today,
+She's going to make them stay at home.
+And daddy doesn't understand it,
+He always said she was as good as gold.
+And he can see no reasons
+'Cause there are no reasons
+What reason do you need to be shown?
 
-Because I'm happy
-Clap along if you feel like a room without a roof
-Because I'm happy
-Clap along if you feel like happiness is the truth
-Because I'm happy
-Clap along if you know what happiness is to you
-Because I'm happy
-Clap along if you feel like that's what you wanna do
-
-Here come bad news talking this and that
-Yeah, well, gimme all you got and don't hold back
-Yeah, well I should probably warn you I'll be just fine
-Yeah, no offense to you don't waste your time
-Here's why
-
-
-Because I'm happy
-Clap along if you feel like a room without a roof
-Because I'm happy
-Clap along if you feel like happiness is the truth
-Because I'm happy
-Clap along if you know what happiness is to you
-Because I'm happy
-Clap along if you feel like that's what you wanna do
-
-(Happy) bring me down
-Can't nothing (happy) bring me down
-My level's too high (happy) to bring me down
-Can't nothing (happy) bring me down
-I said
-(Happy, happy, happy) bring me down
-Can't nothing bring me down
-My level's too high (happy) to bring me down
-Can't nothing bring me down
-I said
-
-Because I'm happy
-Clap along if you feel like a room without a roof
-Because I'm happy
-Clap along if you feel like happiness is the truth
-Because I'm happy
-Clap along if you know what happiness is to you
-Because I'm happy
-Clap along if you feel like that's what you wanna do
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like Mondays.
+I want to shoot
+The whole day down.
 
 
-Because I'm happy
-Clap along if you feel like a room without a roof
-Because I'm happy
-Clap along if you feel like happiness is the truth
-Because I'm happy
-Clap along if you know what happiness is to you
-Because I'm happy
-Clap along if you feel like that's what you wanna do
+The telex machine is kept so clean
+As it types to a waiting world.
+And mother feels so shocked,
+Father's world is rocked,
+And their thoughts turn to
+Their own little girl.
+Sweet 16 ain't so peachy keen,
+No, it ain't so neat to admit defeat.
+They can see no reasons
+'Cause there are no reasons
 
-(Happy) bring me down
-Can't nothing (happy) bring me down
-My level's too high (happy) to bring me down
-Can't nothing (happy) bring me down
-I said
+What reason do you need?
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like Mondays.
+I want to shoot
+The whole day down, down, down.
 
-Because I'm happy
-Clap along if you feel like a room without a roof
-Because I'm happy
-Clap along if you feel like happiness is the truth
-Because I'm happy
-Clap along if you know what happiness is to you
-Because I'm happy
-Clap along if you feel like that's what you wanna do
+Shoot it all down
 
-Because I'm happy
-Clap along if you feel like a room without a roof
-Because I'm happy
-Clap along if you feel like happiness is the truth
-Because I'm happy
-Clap along if you know what happiness is to you
-Because I'm happy
-Clap along if you feel like that's what you wanna do
 
-C'mon
+All the playing's stopped in the playground now
+She wants to play with her toys a while.
+And school's out early and soon we'll be learning
+And the lesson today is how to die.
+And then the bullhorn crackles,
+And the captain tackles,
+With the problems and the how's and why's.
+And he can see no reasons
+'Cause there are no reasons
+What reason do you need to die?
+
+The silicon chip inside her head
+Gets switched to overload.
+And nobody's gonna go to school today,
+She's going to make them stay at home.
+And daddy doesn't understand it,
+He always said she was as good as gold.
+And he can see no reasons
+'Cause there are no reasons
+What reason do you need to be shown?
+
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like, I don't like
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like, I don't like
+Tell me why?
+I don't like Mondays.
+Tell me why?
+I don't like Mondays.
+I wanna shoot,
+The whole day down.
 """
 
 print(te.get_emotion(text))
