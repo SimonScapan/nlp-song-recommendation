@@ -2196,13 +2196,30 @@ removing_not_dict= {'not sad': 'Happy', 'not bad': 'Happy', 'not boring': 'Happy
              'not feeling': 'Sad', "not able": "Sad", "not do": "Sad"}
 
 
-angry_not_list = [k for k,v in removing_not_dict.items() if v == 'Angry']#words that
-Empty_not_list = [k for k,v in removing_not_dict.items() if v == 'Empty']
-Fear_not_list = [k for k,v in removing_not_dict.items() if v == 'Fear']
-Happy_not_list = [k for k,v in removing_not_dict.items() if v == 'Happy']
-Sad_not_list = [k for k,v in removing_not_dict.items() if v == 'Sad']
+Angry_not_list = []
+Empty_not_list = []
+Fear_not_list = []
+Happy_not_list = []
+Sad_not_list = []
 
-save_as_pickle("angry_not", angry_not_list)
+for word, emotion in removing_not_dict.items():
+    
+    if emotion == "Sad":
+       Sad_not_list.append(word)
+    
+    elif emotion == "Happy":
+        Happy_not_list.append(word)
+        
+    elif emotion == "Empty":
+        Empty_not_list.append(word)
+        
+    elif emotion == "Fear":
+        Fear_not_list.append(word)
+    
+    elif emotion == "Angry":
+        Angry_not_list.append(word)
+
+save_as_pickle("angry_not", Angry_not_list)
 save_as_pickle("empty_not", Empty_not_list)
 save_as_pickle("fear_not", Fear_not_list)
 save_as_pickle("happt_not", Happy_not_list)
