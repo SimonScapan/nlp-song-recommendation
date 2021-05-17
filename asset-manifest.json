@@ -1,23 +1,22 @@
 {
   "files": {
     "main.css": "/murat/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/murat/static/js/main.3c628abe.chunk.js",
-    "main.js.map": "/murat/static/js/main.3c628abe.chunk.js.map",
-    "runtime-main.js": "/murat/static/js/runtime-main.87012163.js",
-    "runtime-main.js.map": "/murat/static/js/runtime-main.87012163.js.map",
-    "static/js/2.a9cdb356.chunk.js": "/murat/static/js/2.a9cdb356.chunk.js",
-    "static/js/2.a9cdb356.chunk.js.map": "/murat/static/js/2.a9cdb356.chunk.js.map",
-    "static/js/3.a42d8c24.chunk.js": "/murat/static/js/3.a42d8c24.chunk.js",
-    "static/js/3.a42d8c24.chunk.js.map": "/murat/static/js/3.a42d8c24.chunk.js.map",
+    "main.js": "/murat/static/js/main.704458d8.chunk.js",
+    "main.js.map": "/murat/static/js/main.704458d8.chunk.js.map",
+    "runtime-main.js": "/murat/static/js/runtime-main.dfc41f9d.js",
+    "runtime-main.js.map": "/murat/static/js/runtime-main.dfc41f9d.js.map",
+    "static/js/2.5c7938f0.chunk.js": "/murat/static/js/2.5c7938f0.chunk.js",
+    "static/js/2.5c7938f0.chunk.js.map": "/murat/static/js/2.5c7938f0.chunk.js.map",
+    "static/js/3.678db503.chunk.js": "/murat/static/js/3.678db503.chunk.js",
+    "static/js/3.678db503.chunk.js.map": "/murat/static/js/3.678db503.chunk.js.map",
     "index.html": "/murat/index.html",
     "static/css/main.9d5b29c0.chunk.css.map": "/murat/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.a9cdb356.chunk.js.LICENSE.txt": "/murat/static/js/2.a9cdb356.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/murat/static/media/logo.6ce24c58.svg"
+    "static/js/2.5c7938f0.chunk.js.LICENSE.txt": "/murat/static/js/2.5c7938f0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.87012163.js",
-    "static/js/2.a9cdb356.chunk.js",
+    "static/js/runtime-main.dfc41f9d.js",
+    "static/js/2.5c7938f0.chunk.js",
     "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.3c628abe.chunk.js"
+    "static/js/main.704458d8.chunk.js"
   ]
 }
