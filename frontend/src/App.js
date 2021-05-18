@@ -9,7 +9,7 @@ import { getAllSongs } from "./databasehandler"
 
 function App() {
   const [selectedSong, setSelectedSong] = useState("");
-  const [suggestionResults, setSuggestionResults] = useState();
+  const [suggestionResults, setSuggestionResults] = useState({title:""});
   let allSongs = Object.values(getAllSongs());
   console.log(allSongs)
   
@@ -24,12 +24,20 @@ function App() {
       }
     }
   }
-
+  var BreakException = {};
   let getSongSuggestions = (songInformations) => {
-    let erorr = []
+    console.log("im getSuggestions:")
+    console.log(songInformations)
+    let error = []
     // index; Error
-    // {"Happy": 0, "Angry": 0, "Surprise": 0, "Sad": 0, "Fear": 0}
-    allSongs.forEach(function (song, index, error){
+    // {angry: 0.15, fear: 0.08, genre: 0, happy: 0, interpret: "['Uli']", …}
+    console.log("start error calculation")
+    allSongs.forEach(function (song){
+      console.log("forEach")
+      // console.log(error)
+      // console.log(song.angry)
+      // console.log(songInformations.angry)
+      
       let sentimentError = 0
       sentimentError += song.happy - songInformations.happy
       sentimentError += song.angry - songInformations.angry
@@ -38,17 +46,16 @@ function App() {
       sentimentError += song.fear - songInformations.fear
       error.push(sentimentError)
     });
-    let smallestError = erorr.min;
-    var inbdexOfSmallestError = erorr.indexOf(smallestError);
-    console.log("Songrecommondatino")
-    console.log(allSongs[inbdexOfSmallestError])
+    let smallestError = Math.min.apply(Math, error)
+    var inbdexOfSmallestError = error.indexOf(smallestError);
+  return allSongs[inbdexOfSmallestError]
 
   }
 
   let generateSuggestionDisplay = () => {
     let currentSongInformations = search(selectedSong, allSongs)
     let songSuggestions = getSongSuggestions(currentSongInformations)
-    setSuggestionResults(<h1>{songSuggestions}</h1>)
+    setSuggestionResults(songSuggestions)
     setSelectedSong("")
     console.log("generateSuffestion fetr")
   }
@@ -71,8 +78,8 @@ function App() {
         onClick={() => { generateSuggestionDisplay() }}>
         {"Vorschlag generieren"}
       </button>
-
-      {suggestionResults}
+      <p>Songvorschlag:</p>
+      <p>{suggestionResults.title}</p>
 
 
     </div>
