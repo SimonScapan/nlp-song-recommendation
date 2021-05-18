@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/nlp-song-recommendation/precache-manifest.3735774075b22ee106a04103fc50acd8.js"
+  "/nlp-song-recommendation/precache-manifest.b87d8955f426f29e0352346871f66eb0.js"
 );
 
 self.addEventListener('message', (event) => {
