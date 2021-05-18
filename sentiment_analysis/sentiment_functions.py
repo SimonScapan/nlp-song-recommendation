@@ -85,6 +85,8 @@ def clean_negations(song_text):
     sad_tmp = read_pickle("sad_not")
     happy_tmp = read_pickle("happy_not")
 
+    not_included = []
+
     for entry in angry_tmp:
 
         negations_dict[entry] = "angry"
@@ -115,9 +117,16 @@ def clean_negations(song_text):
 
         except:
 
-            print("missing not pair in negation: ", pair)
+            #print("missing not pair in negation: ", pair)
 
+            not_included.append(pair)
+            
             pass
+    
+    # save not included negations
+    with open("missing_negations.txt", "w") as neg_file:
+        
+        neg_file.write(str(not_included))
 
     return song_text
 
@@ -147,6 +156,8 @@ def lemmatization(word):
 def word_corpus_cleaning(song_text):
 
     # lower text
+    # song_text = str(song_text)
+    # print(song_text)
     song_text = song_text.lower()
 
     # clean up spaces (set max amount of spaces found in lyrics)

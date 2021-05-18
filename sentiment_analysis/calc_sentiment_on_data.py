@@ -232,6 +232,8 @@ def calc_emotions_database(dataframe):
     dataframe["Sad"] = 0
     dataframe["Fear"] = 0
 
+    start = 0
+
     for i in range(len(dataframe)):
 
         emotions = calc_emotions_per_song_cust(dataframe.loc[i, "Lyrics"])
@@ -242,17 +244,33 @@ def calc_emotions_database(dataframe):
         dataframe.loc[i, "Surprise"] = emotions["Surprise"]
         dataframe.loc[i, "Sad"] = emotions["Sad"]
         dataframe.loc[i, "Fear"] = emotions["Fear"]
+
+        if start % 500 == 0:
+
+            print("iter: ", start)
+        
+        start += 1
     
     # save dataframe
-    with open("../data/musicdata.pkl", "wb") as file:
+    with open("../data/musicdata_tmp.pkl", "wb") as file:
 
         pickle.dump(dataframe, file, protocol=pickle.HIGHEST_PROTOCOL)
 
     # return dataframe
 
-# data = pd.read_pickle("../data/musicdata.pkl")
-# calc_emotions_database(dataframe)
+#data = pd.read_pickle("../data/musicdata.pkl")
+#data = data[:1]
+#print(data["Lyrics"])
+# print("unique",len(data["Lyrics"].unique()))
 
+#print("start len data:", len(data))
+#data = data.dropna(subset=["Lyrics"])
+#data = data.reset_index(drop = True)
+#print("Data after null values: ", len(data))
+
+#calc_emotions_database(data)
+data2 = pd.read_pickle("../data/musicdata_tmp.pkl")
+print(data2.head())
 
 # import pandas as pd
 # a = pd.DataFrame({"Lyrics":[text]})
@@ -261,7 +279,7 @@ def calc_emotions_database(dataframe):
 # print(b.head())
 
 #print(calc_emotions_per_song(text)) # compaare to package
-print(calc_emotions_per_song_cust(text))
+#print(calc_emotions_per_song_cust(text))
 
 # append_to_pickle("happy", ["happy", "happiness"]) # happinies obviusoly not in dataset --> append with this funciton
-print(calc_emotions_per_song_cust(text))
+# print(calc_emotions_per_song_cust(text))
