@@ -6,13 +6,13 @@ import TextField from '@material-ui/core/TextField'
 import './App.css';
 import { getAllSongs } from "./databasehandler"
 
+let allSongs = Object.values(getAllSongs());
 
 function App() {
   const [selectedSong, setSelectedSong] = useState("");
-  const [suggestionResults, setSuggestionResults] = useState({title:""});
-  let allSongs = Object.values(getAllSongs());
+  const [suggestionResults, setSuggestionResults] = useState([{ title: "" }, { title: "" }, { title: "" }]);
   console.log(allSongs)
-  
+
   Array.min = function (array) {
     return Math.min.apply(Math, array);
   };
@@ -32,23 +32,35 @@ function App() {
     // index; Error
     // {angry: 0.15, fear: 0.08, genre: 0, happy: 0, interpret: "['Uli']", …}
     console.log("start error calculation")
-    allSongs.forEach(function (song){
-      console.log("forEach")
+    
+    allSongs.forEach(function (song) {
       // console.log(error)
       // console.log(song.angry)
       // console.log(songInformations.angry)
-      
+
+
       let sentimentError = 0
-      sentimentError += song.happy - songInformations.happy
-      sentimentError += song.angry - songInformations.angry
-      sentimentError += song.surprise - songInformations.surprise
-      sentimentError += song.sad - songInformations.sad
-      sentimentError += song.fear - songInformations.fear
+
+      if (song.title == songInformations.title) {
+        sentimentError = 100000000000
+      } else {
+        sentimentError += Math.abs(song.happy - songInformations.happy)
+        sentimentError += Math.abs(song.angry - songInformations.angry)
+        sentimentError += Math.abs(song.surprise - songInformations.surprise)
+        sentimentError += Math.abs(song.sad - songInformations.sad)
+        sentimentError += Math.abs(song.fear - songInformations.fear)
+      }
       error.push(sentimentError)
     });
-    let smallestError = Math.min.apply(Math, error)
-    var inbdexOfSmallestError = error.indexOf(smallestError);
-  return allSongs[inbdexOfSmallestError]
+    console.log("Recommn fenidstiso")
+    let returnSongs = []
+    let inbdexOfSmallestError = 0
+    for (let index = 0; index < 3; index++) {
+      inbdexOfSmallestError = error.indexOf(Math.min.apply(Math, error));
+      returnSongs.push(allSongs.splice(inbdexOfSmallestError, 1)[0])
+    }
+
+    return returnSongs
 
   }
 
@@ -63,23 +75,31 @@ function App() {
   console.log(suggestionResults)
   console.log(selectedSong)
   return (
-    <div className="App">
-      <h1>Songtiteleingabe:</h1>
+    <div className="App" style={{textAlign:"center"}}>
+      <h1 style={{ textAlign: "center" }}>Songtiteleingabe:</h1>
 
       <Autocomplete
         id="combo-box-demo"
         options={allSongs}
         getOptionLabel={(option) => option.title}
-        style={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
+        style={{
+          width: 300,
+          marginLeft: "auto",
+          marginRight: "auto"
+         }}
         onChange={(e) => { setSelectedSong(e.target.innerHTML) }}
       />
       <button
-        onClick={() => { generateSuggestionDisplay() }}>
+        onClick={() => { generateSuggestionDisplay() }}
+        style={{ marginLeft: "auto",
+        marginRight: "auto" }}>
         {"Vorschlag generieren"}
       </button>
-      <p>Songvorschlag:</p>
-      <p>{suggestionResults.title}</p>
+      <p style={{ textAlign: "center" }}>Songvorschlag:</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[0].title}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[1].title}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[2].title}</p>
 
 
     </div>
