@@ -1,13 +1,13 @@
 import $ from 'jquery';
 //old url
 //const Database_url = "https://cocktailapp-d958.firebaseio.com/"
-const Database_url = "https://murat-db-default-rtdb.europe-west1.firebasedatabase.app/"
+const Database_url = "https://murat-db-20-default-rtdb.firebaseio.com/"
 
 
 export function getAllSongs() {
     let response
     $.ajax({
-        url: Database_url + 'songs.json',
+        url: Database_url + '.json',
         dataType: "json",
         type: 'GET',
         async: false,

@@ -9,39 +9,26 @@ import { getAllSongs } from "./databasehandler"
 let allSongs = Object.values(getAllSongs());
 
 function App() {
-  const [selectedSong, setSelectedSong] = useState("");
-  const [suggestionResults, setSuggestionResults] = useState([{ title: "" }, { title: "" }, { title: "" }]);
-  console.log(allSongs)
-
+  const [selectedSong, setSelectedSong] = useState({ song_title: "" });
+  const [suggestionResults, setSuggestionResults] = useState([{ song_title: "" }, { song_title: "" }, { song_title: "" }]);
   Array.min = function (array) {
     return Math.min.apply(Math, array);
   };
 
   let search = (nameKey, myArray) => {
     for (var i = 0; i < myArray.length; i++) {
-      if (myArray[i].title === nameKey) {
+      if (myArray[i].song_title === nameKey.song_title) {
         return myArray[i];
       }
     }
   }
   var BreakException = {};
   let getSongSuggestions = (songInformations) => {
-    console.log("im getSuggestions:")
-    console.log(songInformations)
     let error = []
-    // index; Error
     // {angry: 0.15, fear: 0.08, genre: 0, happy: 0, interpret: "['Uli']", …}
-    console.log("start error calculation")
-    
     allSongs.forEach(function (song) {
-      // console.log(error)
-      // console.log(song.angry)
-      // console.log(songInformations.angry)
-
-
       let sentimentError = 0
-
-      if (song.title == songInformations.title) {
+      if (song.song_title == songInformations.song_title || song.song_genre !== songInformations.song_genre){
         sentimentError = 100000000000
       } else {
         sentimentError += Math.abs(song.happy - songInformations.happy)
@@ -52,7 +39,6 @@ function App() {
       }
       error.push(sentimentError)
     });
-    console.log("Recommn fenidstiso")
     let returnSongs = []
     let inbdexOfSmallestError = 0
     for (let index = 0; index < 3; index++) {
@@ -68,12 +54,9 @@ function App() {
     let currentSongInformations = search(selectedSong, allSongs)
     let songSuggestions = getSongSuggestions(currentSongInformations)
     setSuggestionResults(songSuggestions)
-    setSelectedSong("")
-    console.log("generateSuffestion fetr")
+    setSelectedSong({ song_title: "" })
   }
 
-  console.log(suggestionResults)
-  console.log(selectedSong)
   return (
     <div className="App" style={{textAlign:"center"}}>
       <h1 style={{ textAlign: "center" }}>Songtiteleingabe:</h1>
@@ -81,15 +64,15 @@ function App() {
       <Autocomplete
         id="combo-box-demo"
         options={allSongs}
-        getOptionLabel={(option) => option.title}
+        getOptionLabel={(option) => option.song_title}
         renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
         style={{
           width: 300,
           marginLeft: "auto",
           marginRight: "auto"
          }}
-        onChange={(e) => { setSelectedSong(e.target.innerHTML) }}
-      />
+        onChange={(e) => { setSelectedSong({ song_title: e.target.innerHTML})  } }
+         />
       <button
         onClick={() => { generateSuggestionDisplay() }}
         style={{ marginLeft: "auto",
@@ -97,9 +80,9 @@ function App() {
         {"Vorschlag generieren"}
       </button>
       <p style={{ textAlign: "center" }}>Songvorschlag:</p>
-      <p style={{ textAlign: "center" }}>{suggestionResults[0].title}</p>
-      <p style={{ textAlign: "center" }}>{suggestionResults[1].title}</p>
-      <p style={{ textAlign: "center" }}>{suggestionResults[2].title}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[0].song_title}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[1].song_title}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[2].song_title}</p>
 
 
     </div>
