@@ -4,8 +4,26 @@ import TextField from '@material-ui/core/TextField'
 import './App.css';
 import { getAllSongs } from "./databasehandler"
 
+// function from https://www.codegrepper.com/code-examples/javascript/sort+an+array+of+dictionaries+elements+javascript
+let compareObjects = (object1, object2, key) => {
+  const obj1 = object1[key].toUpperCase()
+  const obj2 = object2[key].toUpperCase()
+
+  if (obj1 < obj2) {
+    return -1
+  }
+  if (obj1 > obj2) {
+    return 1
+  }
+  return 0
+}
+
+
 // Initially load all songs from db on pageload.
 let allSongs = Object.values(getAllSongs());
+  allSongs.sort((e1, e2) => {
+  return compareObjects(e1, e2, 'song_title')
+})
 
 function App() {
   // function state for selectedSong and suggestes Songs
