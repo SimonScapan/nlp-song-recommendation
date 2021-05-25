@@ -1,9 +1,8 @@
 import $ from 'jquery';
-//old url
-//const Database_url = "https://cocktailapp-d958.firebaseio.com/"
+// URL to firebase-db
 const Database_url = "https://murat-db-20-default-rtdb.firebaseio.com/"
 
-
+// function to get all songs from firebase db
 export function getAllSongs() {
     let response
     $.ajax({
@@ -12,8 +11,7 @@ export function getAllSongs() {
         type: 'GET',
         async: false,
         success: function (serverResponse) {
-
-            console.log(serverResponse)
+            // console.log(serverResponse)
             response = serverResponse;
         },
         error: function (serverResponse) {
