@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "833ded310611110c85744c302dcfc408",
+    "revision": "b1727dbda517bcf35c39fc7d69cfef21",
     "url": "/nlp-song-recommendation/index.html"
   },
   {
-    "revision": "2e1404ff378b439a5665",
+    "revision": "e910ffeefae4f3d0c74e",
     "url": "/nlp-song-recommendation/static/css/main.36497136.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nlp-song-recommendation/static/js/2.8e86c258.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2e1404ff378b439a5665",
-    "url": "/nlp-song-recommendation/static/js/main.242714b0.chunk.js"
+    "revision": "e910ffeefae4f3d0c74e",
+    "url": "/nlp-song-recommendation/static/js/main.6d392b61.chunk.js"
   },
   {
     "revision": "588b370048f1b77a8b7e",
