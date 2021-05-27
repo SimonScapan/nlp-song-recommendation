@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/nlp-song-recommendation/static/css/main.36497136.chunk.css",
-    "main.js": "/nlp-song-recommendation/static/js/main.87af7417.chunk.js",
-    "main.js.map": "/nlp-song-recommendation/static/js/main.87af7417.chunk.js.map",
+    "main.js": "/nlp-song-recommendation/static/js/main.242714b0.chunk.js",
+    "main.js.map": "/nlp-song-recommendation/static/js/main.242714b0.chunk.js.map",
     "runtime-main.js": "/nlp-song-recommendation/static/js/runtime-main.aa18c490.js",
     "runtime-main.js.map": "/nlp-song-recommendation/static/js/runtime-main.aa18c490.js.map",
     "static/js/2.8e86c258.chunk.js": "/nlp-song-recommendation/static/js/2.8e86c258.chunk.js",
     "static/js/2.8e86c258.chunk.js.map": "/nlp-song-recommendation/static/js/2.8e86c258.chunk.js.map",
     "index.html": "/nlp-song-recommendation/index.html",
-    "precache-manifest.0f4c6a163ed79d72e239457c9388ae68.js": "/nlp-song-recommendation/precache-manifest.0f4c6a163ed79d72e239457c9388ae68.js",
+    "precache-manifest.2cb9e52a419088b93db75c60ebdb6913.js": "/nlp-song-recommendation/precache-manifest.2cb9e52a419088b93db75c60ebdb6913.js",
     "service-worker.js": "/nlp-song-recommendation/service-worker.js",
     "static/css/main.36497136.chunk.css.map": "/nlp-song-recommendation/static/css/main.36497136.chunk.css.map",
     "static/js/2.8e86c258.chunk.js.LICENSE.txt": "/nlp-song-recommendation/static/js/2.8e86c258.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.aa18c490.js",
     "static/js/2.8e86c258.chunk.js",
     "static/css/main.36497136.chunk.css",
-    "static/js/main.87af7417.chunk.js"
+    "static/js/main.242714b0.chunk.js"
   ]
 }
