@@ -29,7 +29,7 @@ function App() {
   // function state for selectedSong and suggestes Songs
   const [selectedSong, setSelectedSong] = useState({ song_title: "" });
   const [suggestionResults, setSuggestionResults] = useState([{ song_title: "" }, { song_title: "" }, { song_title: "" }]);
-
+  console.log(allSongs)
   // searchSonginformation for whole songinformation for given title. Assumption: Songtitles are unique. 
   let searchSonginformation = (nameKey, myArray) => {
     for (var i = 0; i < myArray.length; i++) {
@@ -63,8 +63,7 @@ function App() {
     allSongs.forEach(function (song) {
       let sentimentError = 0
       // We don't want the same song or songs from different genre as suggestion. Thats why we give those songs high error Values.
-      if (song.song_title == songInformations.song_title || findCommonElement(song.song_genre, songInformations.song_genre)
-      ) {
+      if (song.song_title == songInformations.song_title || !findCommonElement(song.song_genre, songInformations.song_genre)) {
         sentimentError = 100000000000
         // This block sums up all errors (absolute differences) between given song and currently inspected song 
         // from all songs and saves this error as sentimentError into the error-list.
@@ -107,7 +106,7 @@ function App() {
         id="combo-box-demo"
         options={allSongs}
         getOptionLabel={(option) => option.song_title}
-        renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
+        renderInput={(params) => <TextField {...params} label="Song" variant="outlined" />}
         style={{
           width: 300,
           marginLeft: "auto",
@@ -118,12 +117,15 @@ function App() {
       <button
         onClick={() => { generateSuggestion() }}
         style={{
+          marginTop:50,
+          width: 300,
           marginLeft: "auto",
-          marginRight: "auto"
+          marginRight: "auto",
+          marginBottom:50
         }}>
         {"Vorschlag generieren"}
       </button>
-      <p style={{ textAlign: "center" }}>Songvorschlag:</p>
+      <p style={{ textAlign: "center", fontWeight: "bold"}}>Songvorschlag:</p>
       <p style={{ textAlign: "center" }}>{suggestionResults[0].song_title}</p>
       <p style={{ textAlign: "center" }}>{suggestionResults[1].song_title}</p>
       <p style={{ textAlign: "center" }}>{suggestionResults[2].song_title}</p>

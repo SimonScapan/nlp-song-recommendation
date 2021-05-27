@@ -11,13 +11,12 @@ export function getAllSongs() {
         type: 'GET',
         async: false,
         success: function (serverResponse) {
-            // console.log(serverResponse)
+            console.log(serverResponse)
             response = serverResponse;
         },
         error: function (serverResponse) {
             console.log("Errorlog: Response: ", serverResponse);
             response = serverResponse;
-            debugger;
             throw new Error("Error during loading of all songs");
         }
     });
