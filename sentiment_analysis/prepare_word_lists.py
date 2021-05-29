@@ -1,5 +1,6 @@
 from sentiment_functions import save_as_pickle
 
+# word emotion dictionary from text2emotion package
 df = {'Word': ['night', 'tolerate', 'broke', 'shut', 'abhorrence', 'abhorrent', 'abominably', 'abominate', 'admirable', 'admirably', 'adore', 'adorably',
                    'adoration', 'adoring', 'affection', 'affectional', 'affectionate', 'affectionateness', 'aggrav',
                    'aggress', 'aggressiveness', 'aggriev', 'aggrieve', 'alarmed', 'amat', 'amative', 'amatori',
@@ -2064,19 +2065,21 @@ df = {'Word': ['night', 'tolerate', 'broke', 'shut', 'abhorrence', 'abhorrent', 
                       'Fear', 'Fear', 'Fear', 'Sad', 'Sad', 'Sad', 'Sad', 'Sad', 'Sad',
                       'Surprise', 'Surprise', 'Surprise', 'Happy', 'Happy', 'Angry', 'Angry', 'Angry']}
 
+# create emotion lists
 sad_list = []
 fear_list = []
 angry_list = []
 happy_list = []
 surprise_list = []
 
+# for every word in emotion corpus save word to coresponding list
 for i in range(len(df["Word"])):
 
     if df["Emotion"][i] == "Sad":
 
         sad_list.append(df["Word"][i])
     
-    elif df["Emotion"][i] == "Happpy":
+    elif df["Emotion"][i] == "Happy":
 
         happy_list.append(df["Word"][i])
     
@@ -2092,14 +2095,18 @@ for i in range(len(df["Word"])):
 
         angry_list.append(df["Word"][i])
 
+# get unique emotions
 emotion_list = list(set(df["Emotion"]))
 
+# save emotion lists in pickle files
 save_as_pickle("angry", angry_list)
 save_as_pickle("happy", happy_list)
 save_as_pickle("fear", fear_list)
 save_as_pickle("surprise", surprise_list)
 save_as_pickle("sad", sad_list)
 
+
+# get shortcut dict from text2emotion package
 shortcut_dict = {'u': 'you', 'y': 'why', 'r': 'are', 'doin': 'doing', 'hw': 'how', 'k': 'okay', 'm': 'am',
                      'b4': 'before',
                      'idc': "i do not care", 'ty': 'thank you', 'wlcm': 'welcome', 'bc': 'because', '<3': 'love',
@@ -2125,6 +2132,7 @@ shortcut_dict = {'u': 'you', 'y': 'why', 'r': 'are', 'doin': 'doing', 'hw': 'how
 # save shortcuts as pickle
 save_as_pickle("shortcuts", shortcut_dict)
 
+# get negations dict from text2emotion package
 removing_not_dict= {'not sad': 'Happy', 'not bad': 'Happy', 'not boring': 'Happy', 'not wrong': 'Happy', 'not bored': 'Happy',
              'not jealous': 'Happy', 'not happy': 'Sad', 'not well': 'Sad', 'not suitable': 'Angry',
              'not right': 'Angry',
@@ -2187,12 +2195,14 @@ removing_not_dict= {'not sad': 'Happy', 'not bad': 'Happy', 'not boring': 'Happy
              'not volunteering': 'Angry', 'not wait': 'Angry', 'not waiting': 'Angry', 'not feel': 'Sad',
              'not feeling': 'Sad', "not able": "Sad", "not do": "Sad"}
 
+# create negation lists
 angry_not_list = []
 empty_not_list = []
 fear_not_list = []
 happy_not_list = []
 sad_not_list = []
 
+# save negations in coresponding lists
 for word, emotion in removing_not_dict.items():
     
     if emotion == "Sad":
@@ -2210,6 +2220,7 @@ for word, emotion in removing_not_dict.items():
     elif emotion == "Angry":
         angry_not_list.append(word)
 
+# save negation lists as pickle
 save_as_pickle("angry_not", angry_not_list)
 save_as_pickle("empty_not", empty_not_list)
 save_as_pickle("fear_not", fear_not_list)

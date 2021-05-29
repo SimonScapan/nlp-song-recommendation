@@ -1,11 +1,9 @@
-from nltk.stem import WordNetLemmatizer
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 import pandas as pd
 import pickle
 import re
+import spacy
 
-# define function to import word_classifications
+## DISCLAIMER: Code is based on text2emotion package, but imporved by using spacy package and adding modular parts
 
 def save_as_pickle(filename, file):
 
@@ -19,6 +17,7 @@ def read_pickle(filename):
 
     return pickle_file
 
+# give user the ability to append new word to saved pickle files
 def append_to_pickle(filename, data):
 
     pickle_file = pd.read_pickle(f"{filename}.pkl")
@@ -32,6 +31,7 @@ def clean_apostrophes(word):
     # check if cleaning nececary
     if "'" in word:
         
+        # define all apostrophes and shortcuts to resolve them
         word = re.sub("won't", "will not", word)
         word = re.sub("doesn't", "does not", word)
         word = re.sub("don't", "do not", word)
@@ -48,6 +48,7 @@ def clean_apostrophes(word):
         word = re.sub("'cause", "because", word)
         word = re.sub("can't", "can not", word)
         word = re.sub("n't", "not", word)
+        word = re.sub("c'mon", "come on", word)
 
         return word
 
@@ -55,15 +56,48 @@ def clean_apostrophes(word):
 
         return word
 
-def clean_nonalpha(song_text):
-
-    replace_list = [".", ",", "!", "?", "-", ";", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "(", ")"]
-
-    for element in replace_list:
-
-        song_text = song_text.replace(element, "")
+def remove_word_types(song_text, nlp):
+    "remove Punctuation, Spaces, etc."
     
-    return song_text
+    # create list for clen words
+    clean_text = []
+    
+    # iterate over song text
+    for token in song_text:
+        
+        # get pos of token
+        token_pos = token.pos_
+        
+        # check if pos has to be excluded
+        if token_pos not in ["SPACE", "PUNCT", "NUM", "SYM", "PRON", "AUX", "SCONJ"]:
+            
+            clean_text.append(token.text)
+        
+        else:
+            
+            pass
+    
+    return nlp(" ".join(clean_text))
+
+def remove_entities(song_text, nlp):
+    
+    clean_text = []
+    
+    # get all entities from song text
+    entities = [entity.text for entity in song_text.ents]
+    
+    for token in song_text:
+        
+        # check if token is entity
+        if token.text in entities:
+            
+            pass
+        
+        else:
+            
+            clean_text.append(token.text)
+            
+    return nlp(" ".join(clean_text))
 
 def clean_shortcuts(word):
 
@@ -124,76 +158,56 @@ def clean_negations(song_text):
             pass
     
     # save not included negations
-    with open("missing_negations.txt", "w") as neg_file:
-        
-        neg_file.write(str(not_included))
+    append_to_pickle("missing_negations", not_included)
 
     return song_text
 
-def clean_stopwords(word):
+def clean_stopwords(song_text, nlp):
 
-    # load english sstopwords from nltk
-    stop_words = set(stopwords.words('english'))
+    # load english stopwords from spacy
+    stop_words = nlp.Defaults.stop_words
     
-    # return if word is not a stop word
-    if word in stop_words:
+    # create word list without stopwords
+    clean_text = [word for word in song_text if not word in stop_words]
+    
+    return nlp(" ".join(clean_text))
+    
 
-        pass
+def lemmatization(song_text):
 
-    else:
+    # iterate over song text and lemmatize every word
+    song_text_lemma = [token.lemma_ for token in song_text]
 
-        return word
+    return song_text_lemma
 
-def lemmatization(word):
-
-    # load nltk lemmatizer
-    lemma = WordNetLemmatizer()
-    word = lemma.lemmatize(word, 'v')
-    word = lemma.lemmatize(word, 'n')
-
-    return word
-
-def word_corpus_cleaning(song_text):
+def word_corpus_cleaning(song_text, nlp):
 
     # lower text
-    # song_text = str(song_text)
-    # print(song_text)
     song_text = song_text.lower()
-
-    # clean up spaces (set max amount of spaces found in lyrics)
-    for i in range(2,5):
-        
-        song_text = song_text.replace(i*" ", " ")
 
     # clean up apostrophes
     song_text = " ".join([clean_apostrophes(word) for word in song_text.split(" ")])
-
-    # clean up non alphanumerical signs
-    song_text = clean_nonalpha(song_text)
-
+    
     # clean up shortcuts
     song_text = " ".join([clean_shortcuts(word) for word in song_text.split(" ")])
+    
+    # clean up negations - here full text because of 2 word patterns - afterwards convert to nlp object
+    song_text = nlp(clean_negations(song_text))
 
-    # clean up negations - here full text because of 2 word patterns
-    song_text = clean_negations(song_text)
+    # clean up text from punctuation, non alpha elements, pronouns, etc.
+    song_text = remove_word_types(song_text, nlp)
+    
+    # clean up entities (like countries, organisations, etc.)
+    song_text = remove_entities(song_text, nlp)
 
-    # tokenize
-    song_text = word_tokenize(song_text)
+    # tokenize text
+    song_text = [token.text for token in song_text]
 
     # clean up stop words
-    song_text_tmp = []
-    for word in song_text:
-
-        word = clean_stopwords(word)
-
-        if word is not None:
-            song_text_tmp.append(word)
-    
-    song_text = song_text_tmp
-    song_text_tmp = None
+    song_text = clean_stopwords(song_text, nlp)
 
     # lammetize song text
-    song_text = [lemmatization(word) for word in song_text]
+    song_text = lemmatization(song_text)
 
     # print(song_text)
     return song_text
