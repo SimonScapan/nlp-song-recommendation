@@ -12,8 +12,12 @@ The project was created in connection with the "Data Science Entwicklungen" Modu
 * Dataframe is available on [OneDrive](https://1drv.ms/u/s!Alb7pfMD-8hrg9IHYF5rvCg25p_ozg?e=xrcst4) cloud
 
 ### Step 2 - Sentiment analysis and recommender system
+Sentiment Analysis Funcionality is based on [Text2Emotion](https://pypi.org/project/text2emotion/) package and it's word Dictionaries.
 
-TBD
+* Lyrics are cleaned by apostrophes, shortcuts an negations
+* Numbers, Symbols, Pronoms, Entities and Stop Words are removed
+* Remaining Words are lemmatized
+* Words are mapped on Emotion Dict
 
 ### Step 3 - Usage
 
