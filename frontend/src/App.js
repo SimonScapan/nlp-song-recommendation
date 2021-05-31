@@ -3,6 +3,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import './App.css';
 import { getAllSongs } from "./databasehandler"
+import image from "./image.jpg"
 
 // function from https://www.codegrepper.com/code-examples/javascript/sort+an+array+of+dictionaries+elements+javascript
 let compareObjects = (object1, object2, key) => {
@@ -21,17 +22,17 @@ let compareObjects = (object1, object2, key) => {
 // Initially load all songs from db on pageload.
 let allSongs = Object.values(getAllSongs());
 allSongs.sort((e1, e2) => {
-  return compareObjects(e1, e2, 'song_title')
+  return compareObjects(e1, e2, 'Song_title')
 })
 
 function App() {
   // function state for selectedSong and suggestes Songs
-  const [selectedSong, setSelectedSong] = useState({ song_title: "" });
-  const [suggestionResults, setSuggestionResults] = useState([{ song_title: "", artist: "" }, { song_title: "", artist: "" }, { song_title: "", artist: "" }]);
-  // searchSonginformation for whole songinformation for given title. Assumption: Songtitles per artist are unique. 
+  const [selectedSong, setSelectedSong] = useState({ Song_title: "" });
+  const [suggestionResults, setSuggestionResults] = useState([{ Song_title: "", Artist: "" }, { Song_title: "", Artist: "" }, { Song_title: "", Artist: "" }]);
+  // searchSonginformation for whole songinformation for given title. Assumption: Songtitles per Artist are unique. 
   let searchSonginformation = (nameKey, myArray) => {
     for (var i = 0; i < myArray.length; i++) {
-      if (myArray[i].song_title == nameKey) {
+      if (myArray[i].Song_title == nameKey) {
         return myArray[i];
       }
     }
@@ -56,21 +57,21 @@ function App() {
   let getSongSuggestions = (songInformations) => {
     let error = []
     // songInformation entity:
-    // {angry: 0.15, fear: 0.08, genre: 0, happy: 0, interpret: "['Uli']", …}
+    // {Angry: 0.15, Fear: 0.08, genre: 0, Happy: 0, interpret: "['Uli']", …}
     // Loop trough all songs and calculate error for each song based on absolute difference.
     allSongs.forEach(function (song) {
       let sentimentError = 0
       // We don't want the same song or songs from different genre as suggestion. Thats why we give those songs high error values.
-      if (song.song_title == songInformations.song_title || !findCommonElement(song.song_genre, songInformations.song_genre)) {
+      if (song.Song_title == songInformations.Song_title || !findCommonElement(song.Song_genre, songInformations.Song_genre)) {
         sentimentError = 100000000000
         // This block sums up all errors (absolute differences) between given song and currently inspected song 
         // from all songs and saves this error as sentimentError into the error-list.
       } else {
-        sentimentError += Math.abs(song.happy - songInformations.happy)
-        sentimentError += Math.abs(song.angry - songInformations.angry)
-        sentimentError += Math.abs(song.surprise - songInformations.surprise)
-        sentimentError += Math.abs(song.sad - songInformations.sad)
-        sentimentError += Math.abs(song.fear - songInformations.fear)
+        sentimentError += Math.abs(song.Happy - songInformations.Happy)
+        sentimentError += Math.abs(song.Angry - songInformations.Angry)
+        sentimentError += Math.abs(song.Surprise - songInformations.Surprise)
+        sentimentError += Math.abs(song.Sad - songInformations.Sad)
+        sentimentError += Math.abs(song.Fear - songInformations.Fear)
       }
       error.push(sentimentError)
     });
@@ -89,7 +90,7 @@ function App() {
 
   let generateSuggestion = () => {
     // get current song informations.
-    let currentSongInformations = searchSonginformation(selectedSong.song_title.split("  -  ")[0], allSongs)
+    let currentSongInformations = searchSonginformation(selectedSong.Song_title.split("  -  ")[0], allSongs)
     // get song suggestion based on current song informations.
     let songSuggestions = getSongSuggestions(currentSongInformations)
     // set song suggestion into suggestionResults.
@@ -102,15 +103,18 @@ function App() {
       <h1 style={{ textAlign: "center" }}>Songtiteleingabe:</h1>
       <Autocomplete
         id="combo-box-demo"
+        limitTags={2}
         options={allSongs}
-        getOptionLabel={(option) => option.song_title + "  -  " + option.artist}
+        maxSearchResults={10}
+        getOptionLabel={(option) => option.Song_title + "  -  " + option.Artist}
         renderInput={(params) => <TextField {...params} label="Song" variant="outlined" />}
+        inputProps={{maxLength: 20}}
         style={{
           width: 300,
           marginLeft: "auto",
           marginRight: "auto"
         }}
-        onChange={(e) => { setSelectedSong({ song_title: e.target.innerHTML }) }}
+        onChange={(e) => { setSelectedSong({ Song_title: e.target.innerHTML }) }}
       />
       <button
         onClick={() => { generateSuggestion() }}
@@ -124,9 +128,9 @@ function App() {
         {"Vorschlag generieren"}
       </button>
       <p style={{ textAlign: "center", fontWeight: "bold" }}>Songvorschlag:</p>
-      <p style={{ textAlign: "center" }}>{suggestionResults[0].song_title + "  -  " + suggestionResults[0].artist}</p>
-      <p style={{ textAlign: "center" }}>{suggestionResults[1].song_title + "  -  " + suggestionResults[1].artist}</p>
-      <p style={{ textAlign: "center" }}>{suggestionResults[2].song_title + "  -  " + suggestionResults[2].artist}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[0].Song_title + "  -  " + suggestionResults[0].Artist}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[1].Song_title + "  -  " + suggestionResults[1].Artist}</p>
+      <p style={{ textAlign: "center" }}>{suggestionResults[2].Song_title + "  -  " + suggestionResults[2].Artist}</p>
     </div>
   );
 }
