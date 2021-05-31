@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
-import './App.css';
 import { getAllSongs } from "./databasehandler"
-import image from "./image.jpg"
+
+// Initially load all songs from db on pageload.
+// Get Array with json-objects out of response with Object.values()
+let allSongs = Object.values(getAllSongs());
 
 // function from https://www.codegrepper.com/code-examples/javascript/sort+an+array+of+dictionaries+elements+javascript
 let compareObjects = (object1, object2, key) => {
@@ -18,32 +20,31 @@ let compareObjects = (object1, object2, key) => {
   return 0
 }
 
-
-// Initially load all songs from db on pageload.
-let allSongs = Object.values(getAllSongs());
+// sort "Song_title" alphabetically.
 allSongs.sort((e1, e2) => {
   return compareObjects(e1, e2, 'Song_title')
 })
 
 function App() {
-  // function state for selectedSong and suggestes Songs
+  // function state for selectedSong and suggestionResults; initially empty
   const [selectedSong, setSelectedSong] = useState({ Song_title: "" });
   const [suggestionResults, setSuggestionResults] = useState([{ Song_title: "", Artist: "" }, { Song_title: "", Artist: "" }, { Song_title: "", Artist: "" }]);
-  // searchSonginformation for whole songinformation for given title. Assumption: Songtitles per Artist are unique. 
-  let searchSonginformation = (nameKey, myArray) => {
+
+  // Search songinformations for given songTitle. Assumption: Songtitles per Artist are unique. 
+  let searchSonginformation = (songTitle, myArray) => {
     for (var i = 0; i < myArray.length; i++) {
-      if (myArray[i].Song_title == nameKey) {
+      if (myArray[i].Song_title === songTitle) {
         return myArray[i];
       }
     }
   }
 
-  // check if arrays have common elements.
+  // check if arrays have common elements, return true if.
   let findCommonElement = (array1, array2) => {
     // Loop trough both arrays.
     for (let i = 0; i < array1.length; i++) {
       for (let j = 0; j < array2.length; j++) {
-        // if elements matching, return true.
+        // If elements matching, return true.
         if (array1[i] === array2[j]) {
           return true;
         }
@@ -55,17 +56,18 @@ function App() {
 
   // genereate song suggestion based on given songinformations.
   let getSongSuggestions = (songInformations) => {
-    let error = []
+    let errorForEachSong = []
     // songInformation entity:
     // {Angry: 0.15, Fear: 0.08, genre: 0, Happy: 0, interpret: "['Uli']", …}
+
     // Loop trough all songs and calculate error for each song based on absolute difference.
     allSongs.forEach(function (song) {
       let sentimentError = 0
       // We don't want the same song or songs from different genre as suggestion. Thats why we give those songs high error values.
-      if (song.Song_title == songInformations.Song_title || !findCommonElement(song.Song_genre, songInformations.Song_genre)) {
+      if (song.Song_title === songInformations.Song_title || !findCommonElement(song.Song_genre, songInformations.Song_genre)) {
         sentimentError = 100000000000
-        // This block sums up all errors (absolute differences) between given song and currently inspected song 
-        // from all songs and saves this error as sentimentError into the error-list.
+        // This block sums up all errors (absolute differences) between given song and currently inspected song.
+        // SentimentError will be saved in errorForEachSong-list.
       } else {
         sentimentError += Math.abs(song.Happy - songInformations.Happy)
         sentimentError += Math.abs(song.Angry - songInformations.Angry)
@@ -73,31 +75,32 @@ function App() {
         sentimentError += Math.abs(song.Sad - songInformations.Sad)
         sentimentError += Math.abs(song.Fear - songInformations.Fear)
       }
-      error.push(sentimentError)
+      errorForEachSong.push(sentimentError)
     });
 
-    // The list returnSongs will now be filled with 3 smallest error songs.
-    let returnSongs = []
+    // The list returnSongs will now be filled with the 3 best fitting songs.
+    let returnSuggestedSongs = []
     let inbdexOfSmallestError = 0
     let allSongs_tmp_copy = allSongs.slice(0, -1)
+    // For-loop to detect the 3 best fitting songs.
     for (let index = 0; index < 3; index++) {
-      inbdexOfSmallestError = error.indexOf(Math.min.apply(Math, error));
-      returnSongs.push(allSongs_tmp_copy.splice(inbdexOfSmallestError, 1)[0])
+      inbdexOfSmallestError = errorForEachSong.indexOf(Math.min.apply(Math, errorForEachSong));
+      returnSuggestedSongs.push(allSongs_tmp_copy.splice(inbdexOfSmallestError, 1)[0])
     }
-    return returnSongs
+    return returnSuggestedSongs
   }
 
 
   let generateSuggestion = () => {
-    // get current song informations.
+    // get current song informations. Song_title contains title and interpret and only the title is necessary.
     let currentSongInformations = searchSonginformation(selectedSong.Song_title.split("  -  ")[0], allSongs)
     // get song suggestion based on current song informations.
     let songSuggestions = getSongSuggestions(currentSongInformations)
-    // set song suggestion into suggestionResults.
+    // set song suggestion into suggestionResults-state.
     setSuggestionResults(songSuggestions)
   }
 
-  // Display necessary input on website:
+  // Display necessary inputfield and songsuggestionsresults on website:
   return (
     <div className="App" style={{ textAlign: "center" }}>
       <h1 style={{ textAlign: "center" }}>Songtiteleingabe:</h1>
@@ -108,7 +111,7 @@ function App() {
         maxSearchResults={10}
         getOptionLabel={(option) => option.Song_title + "  -  " + option.Artist}
         renderInput={(params) => <TextField {...params} label="Song" variant="outlined" />}
-        inputProps={{maxLength: 20}}
+        inputProps={{ maxLength: 20 }}
         style={{
           width: 300,
           marginLeft: "auto",

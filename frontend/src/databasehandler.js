@@ -1,7 +1,7 @@
-import $, { ajax } from 'jquery';
+import $ from 'jquery';
+
 // URL to firebase-db
 const Database_url = "https://murat-db-30-default-rtdb.europe-west1.firebasedatabase.app/"
-// const Database_url = "https://murat-db-20-default-rtdb.firebaseio.com/"
 
 // function to get all songs from firebase db
 export function getAllSongs() {
@@ -12,7 +12,6 @@ export function getAllSongs() {
         type: 'GET',
         async: false,
         success: function (serverResponse) {
-            // console.log(serverResponse)
             response = serverResponse;
         },
         error: function (serverResponse) {
