@@ -3,7 +3,7 @@ import pickle
 import re
 import spacy
 
-## DISCLAIMER: Code is based on text2emotion package, but imporved by using spacy package and adding modular parts
+## DISCLAIMER: Code is based on text2emotion package, but improved by using spacy package and adding modular parts
 
 def save_as_pickle(filename, file):
 
@@ -59,7 +59,7 @@ def clean_apostrophes(word):
 def remove_word_types(song_text, nlp):
     "remove Punctuation, Spaces, etc."
     
-    # create list for clen words
+    # create list for clean words
     clean_text = []
     
     # iterate over song text
@@ -68,7 +68,7 @@ def remove_word_types(song_text, nlp):
         # get pos of token
         token_pos = token.pos_
         
-        # check if pos has to be excluded
+        # check if pos has to be excluded | AUX = auxiliary verb, SCONJ =  subordinating conjunction
         if token_pos not in ["SPACE", "PUNCT", "NUM", "SYM", "PRON", "AUX", "SCONJ"]:
             
             clean_text.append(token.text)
@@ -88,12 +88,8 @@ def remove_entities(song_text, nlp):
     
     for token in song_text:
         
-        # check if token is entity
-        if token.text in entities:
-            
-            pass
-        
-        else:
+        # check if token is not an entity
+        if token.text not in entities:
             
             clean_text.append(token.text)
             
@@ -113,31 +109,31 @@ def clean_shortcuts(word):
 def clean_negations(song_text):
 
     negations_dict = {}
-    angry_tmp = read_pickle("angry_not")
-    empty_tmp = read_pickle("empty_not")
-    fear_tmp = read_pickle("fear_not")
-    sad_tmp = read_pickle("sad_not")
-    happy_tmp = read_pickle("happy_not")
+    angry = read_pickle("angry_not")
+    empty = read_pickle("empty_not")
+    fear = read_pickle("fear_not")
+    sad = read_pickle("sad_not")
+    happy = read_pickle("happy_not")
 
     not_included = []
 
-    for entry in angry_tmp:
+    for entry in angry:
 
         negations_dict[entry] = "angry"
 
-    for entry in empty_tmp:
+    for entry in empty:
 
         negations_dict[entry] = "empty"
 
-    for entry in fear_tmp:
+    for entry in fear:
 
         negations_dict[entry] = "fear"
 
-    for entry in sad_tmp:
+    for entry in sad:
 
         negations_dict[entry] = "sad"
 
-    for entry in happy_tmp:
+    for entry in happy:
 
         negations_dict[entry] = "happy"
 
@@ -151,11 +147,7 @@ def clean_negations(song_text):
 
         except:
 
-            #print("missing not pair in negation: ", pair)
-
             not_included.append(pair)
-            
-            pass
     
     # save not included negations
     append_to_pickle("missing_negations", not_included)

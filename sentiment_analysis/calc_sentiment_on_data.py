@@ -11,7 +11,14 @@ def calc_emotions_per_song(song_text):
 
     emotion_values = []
     emotions = {"Happy": 0, "Angry": 0, "Surprise": 0, "Sad": 0, "Fear": 0}
-    y = 0
+
+    emotion_word_dict = {
+        "Happy":[], 
+        "Angry":[],
+        "Surprise":[],
+        "Sad":[],
+        "Fear":[]
+    }
 
     emotion_dict = {
         "Happy": read_pickle("happy"),
@@ -32,14 +39,14 @@ def calc_emotions_per_song(song_text):
 
                 emotions[emotion] += 1
 
-    for i in emotions:
-        
-        emotion_values.append(round((emotions[i] / sum(emotions.values())), 2))
+                emotion_word_dict[emotion].append(word)
 
-    for j in emotions:
+    for emotion in emotions:
 
-        emotions[j] = emotion_values[y]
-        y += 1
+        emotions[emotion] = round((emotions[emotion] / sum(emotions.values())), 2)
+
+    # print(emotion_word_dict)
+    # print(50*"-")
 
     return emotions
     
@@ -52,7 +59,7 @@ def calc_emotions_database(dataframe):
     dataframe["Sad"] = 0
     dataframe["Fear"] = 0
 
-    start = 0
+    iteration = 0
 
     # create list of songs where no emotion could be calculated
     no_emotion_list = []
@@ -77,31 +84,22 @@ def calc_emotions_database(dataframe):
         dataframe.loc[i, "Sad"] = emotions["Sad"]
         dataframe.loc[i, "Fear"] = emotions["Fear"]
 
-        if start % 50 == 0:
+        if iteration % 50 == 0:
 
-            print("iter: ", start)
+            print("iter: ", iteration)
         
-        start += 1
+        iteration += 1
     
     # save not calulatable song titles
     save_as_pickle("not_calc_songs", no_emotion_list)
 
     # save dataframe
-    with open("../data/musicdata_sentimented.pkl", "wb") as file:
-
-        pickle.dump(dataframe, file, protocol=pickle.HIGHEST_PROTOCOL)
-
-    # return dataframe
+    save_as_pickle("musicdata_sentimented", dataframe)
 
 # read dataframe
-# data = pd.read_pickle("../data/master_music_data.pkl")
+data = pd.read_pickle("../data/master_music_data.pkl")
 
 # get emotions for whole dataframe and save it
-# calc_emotions_database(data)
+calc_emotions_database(data)
 
-# check if everything workes
-# data2 = pd.read_pickle("../data/musicdata_sentimented.pkl")
-# print(data2[:2])
-# print(data2["Angry"].head(100))
-
-# append_to_pickle("happy", ["happiness"]) # happinies obviusoly not in dataset --> append with this funciton
+# append_to_pickle("happy", ["happiness"]) # happinies not in dataset --> append with this funciton

@@ -2095,9 +2095,6 @@ for i in range(len(df["Word"])):
 
         angry_list.append(df["Word"][i])
 
-# get unique emotions
-emotion_list = list(set(df["Emotion"]))
-
 # save emotion lists in pickle files
 save_as_pickle("angry", angry_list)
 save_as_pickle("happy", happy_list)
